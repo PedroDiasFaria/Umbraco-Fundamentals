@@ -1,0 +1,62 @@
+﻿@inherits Umbraco.Web.Mvc.UmbracoTemplatePage<ContentModels.NewsArticle>
+@using ContentModels = Umbraco.Web.PublishedContentModels;
+@{
+	Layout = "ChildPage.cshtml";
+	
+    var site = Model.Content.Site();
+    var articles = Model.Content.Siblings();
+    
+    /*site.FirstChild<NewsArea>()
+                    .Children<NewsArticle>()
+                    .OrderByDescending;*/
+}
+
+
+<section class="section">
+
+    <div class="container">
+
+        <div class="col-md-9">
+
+            <article>
+            
+            <h4>
+                <!-- Insert the Summary field Here -->
+                @Umbraco.Field("summary")
+            </h4>
+            
+            <h5>
+                <!-- Insert the Categories field Here -->
+
+                Categorised as:                 
+                    @foreach (var t in Model.Content.Categories){
+                        <a class="nav-link nav-link--black nav-link--air-bottom"
+                        href="@Model.Content.Parent.Url?tag=@t">@t</a>
+                        }
+            </h5>
+            
+            <!-- Insert the BodyText field here -->
+            @Umbraco.Field("bodyText")
+            </article>
+        </div>
+        
+
+        
+        <div class="col-md-3">
+            <nav class="nav-bar nav-bar--list">
+                    @foreach(var article in articles ){
+                        <a href = "@article.Url" class = "blogpost blogpost-with-image">
+                            <div class = "blogpost-info" >
+                            <div class = "blogpost-meta" >
+                                <small class = "blogpost-date" > @article.CreateDate </small>
+                            </div>
+                            <h3 class = "blogpost-title">@article.Name </h3>
+                            </div>
+                        </a>
+                    }
+            </nav>
+        </div>
+
+
+    </div>
+</section>

@@ -1,0 +1,16 @@
+﻿@inherits Umbraco.Web.Mvc.UmbracoTemplatePage
+@{
+	Layout = "Layout.cshtml";
+}
+
+@if(Model.Content is IHeader && Model.Content.HasValue("headerImage")){
+    @Html.Partial("header")
+}else{
+    <section class="section section--themed section--header section--content-center-bottom">
+        <div class="section__hero-content">
+            <h1 class="no-air">@Umbraco.Field("pageName")</h1>
+        </div>
+    </section>
+}
+
+@RenderBody()

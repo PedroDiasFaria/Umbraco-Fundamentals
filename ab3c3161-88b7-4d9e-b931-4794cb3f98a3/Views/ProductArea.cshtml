@@ -1,0 +1,27 @@
+﻿@inherits Umbraco.Web.Mvc.UmbracoTemplatePage<ContentModels.ProductArea>
+@using ContentModels = Umbraco.Web.PublishedContentModels;
+@{
+	Layout = "ChildPage.cshtml";
+	var products = Model.Content
+	                    .Children<Product>()
+                        .Select(x=> new Product(x));
+}
+
+<section class="section">
+
+    <div class="container">
+
+        <div class="col-md-9">
+
+            <div class="container">
+				<div class="col-md-12">
+				    @foreach(var article in products ){
+                        @Html.GetGridHtml(article, "bodyText")
+                        <br><hr>
+                    }
+
+				</div>
+            </div>      
+        </div>
+    </div>
+</section>

@@ -1,0 +1,113 @@
+﻿@inherits Umbraco.Web.Mvc.UmbracoTemplatePage
+@{
+	Layout = null;
+}
+
+<!doctype html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+<!-- Add CompanyName and PageName here -->
+<title>@Umbraco.Field("companyName", recursive: true) - @Umbraco.Field("pageName")</title>
+
+
+<!-- you could implement these in your document types, couldn't you?  -->
+<meta name="description" content="">
+<meta name="author" content="">
+
+<!-- Link to stylesheet - will be addded later -->
+<link rel="stylesheet" href="/css/style.css" />
+
+<!-- Assets for Umbraco Forms -->
+<script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-2.1.1.min.js"></script>
+<script src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.13.1/jquery.validate.min.js"></script>
+<script src="https://ajax.aspnetcdn.com/ajax/mvc/5.1/jquery.validate.unobtrusive.min.js"></script>
+
+</head>
+
+    <body class="frontpage theme-font-standard theme-color-water">
+
+        <header class="header">
+
+            <div class="logo">
+                <a class="nav-link nav-link--home nav-link--home__text logo-text" href="/">Fundamentals</a>
+            </div>
+
+            <!-- Our Top navigation -->
+            <nav class="nav-bar top-nav">
+                <a class="nav-link" href="/">Home</a>
+                
+                @foreach(var child in Model.Content.Site().Children()){
+                    <!-- 
+                    <a class="nav-link nav-link--active" href="@child.Url">@child.Name</a> 
+                    -->
+                    
+                    <a href = "@child.Url" class = "nav-link nav-link--black
+                        @child.IsAncestorOrSelf(Model.Content, "nav-link--active")">
+                        @child.Name
+                    </a>
+                }
+            </nav>
+
+        </header>
+
+        <main>
+			
+            <!-- End of top navigation -->
+            @RenderBody()
+        
+            <!-- Great place to render the body of our page -->
+
+
+            <!-- Beginning of footer -->		
+            <section class="section section--themed">
+
+                <div class="container">
+                    <div class="row">
+
+                        <div class="ta-center">
+                            <h2 >Get in touch</h2>
+                            <p class="section__description mw-640 ma-h-auto">
+								Over dinner, we talked a lot about blogging and blogging strategies. 
+								One of the most fascinating pieces Marc and Angel have written is a post that got 
+							</p>
+
+                            <a class="button button--border--light_solid" href="#">Send love in a mail</a>
+
+                        </div>
+
+                    </div>
+                </div>
+
+            </section>
+								
+								
+
+        </main>
+
+        <footer class="section--themed">
+            <div class="container">
+                <div class="row">
+
+                    <div class="col-md-12 ta-center">
+                        <!-- Use the companyName value here -->
+                        @Umbraco.Field("companyName", recursive: true)
+                        
+						&nbsp;&nbsp;&nbsp; - &nbsp;&nbsp;&nbsp; 
+
+                        <!-- Use the companyAddress value here -->
+                        @Umbraco.Field("companyAddress", recursive: true)
+                        
+						&nbsp;&nbsp;&nbsp; - &nbsp;&nbsp;&nbsp; 
+						
+                        <!-- Use the companyPhone value here -->
+						@Umbraco.Field("companyPhone", recursive: true)
+                    </div>
+                </div>
+            </div>
+        </footer>
+
+    </body>
+</html>

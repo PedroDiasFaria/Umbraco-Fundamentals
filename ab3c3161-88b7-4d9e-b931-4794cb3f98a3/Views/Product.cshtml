@@ -1,0 +1,27 @@
+﻿@inherits Umbraco.Web.Mvc.UmbracoTemplatePage<ContentModels.Product>
+@using ContentModels = Umbraco.Web.PublishedContentModels;
+@{
+	Layout = "ChildPage.cshtml";
+    var testimonials = Model.Content
+                            .Testimonials.Select(x=> new Testimonial(x));
+}
+
+<section class = "section" >
+    <div class = "container" >
+        <div class = "col-md-12" >
+            @foreach(var testimonial in testimonials){
+                <div class = "col-sm-6 col-lg-4">
+                    <div class = "testimonial" >
+                        <div class = "testimonial-image"
+                            style = "background-image: url('@testimonial.Image.GetCropUrl("grid")')">
+                        </div>
+                        <div class = "testimonial-content" >
+                            <h3 class = "testimonial-title" > @testimonial.Title</h3>
+                            <p class = "testimonial-text no-air" > @testimonial.Quote</p>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</section>

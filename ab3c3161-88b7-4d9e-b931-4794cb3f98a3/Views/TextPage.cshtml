@@ -1,0 +1,36 @@
+﻿@inherits Umbraco.Web.Mvc.UmbracoTemplatePage<ContentModels.TextPage>
+@using ContentModels = Umbraco.Web.PublishedContentModels;
+@{
+	Layout = "ChildPage.cshtml";
+}
+
+
+
+<section class="section">
+    <div class="container">
+        <div class="col-md-9">
+            <article>
+                <!-- Replace with "bodyText" value -->
+                <p>@Umbraco.Field("bodyText")</p>
+            </article>
+        </div>
+
+        <div class="col-md-3">
+            <nav class="nav-bar nav-bar--list">
+                
+                @foreach(var child in Model.Content.AncestorOrSelf(2).Children()){
+
+                    <a href = "@child.Url" class = "nav-link nav-link--black
+                        @child.IsAncestorOrSelf(Model.Content, "nav-link--active")">
+                        @child.Name
+                    </a>
+                }     
+                
+                
+
+            </nav>
+        </div>
+
+
+    </div>
+</section>
